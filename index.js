@@ -299,11 +299,11 @@ if (!isMobile) {
 /* the 4th page */
 const REPOS_CONTAINER = document.getElementById('repos-grid');
 const CURRENT_LINK = window.location.href;
-const REPO_REGEX = /https:\/\/([a-zA-Z0-9]+)\.github\.io\/[a-zA-Z0-9]+\/?/;
+const REPO_REGEX = /https:\/\/([a-zA-Z0-9]+\-*)\.github\.io\/[a-zA-Z0-9]+\-*\/?/;
 const REPO_AUTHOR = CURRENT_LINK.match(REPO_REGEX);
 
 // in case I change my username someday
-fetch(`https://api.github.com/users/${REPO_REGEX.test(CURRENT_LINK) ? REPO_AUTHOR[0] : '114bft68'}/repos`)
+fetch(`https://api.github.com/users/${REPO_REGEX.test(CURRENT_LINK) ? REPO_AUTHOR[1] : '114bft68'}/repos`)
     
     .then((response) => {
     
