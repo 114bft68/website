@@ -1,0 +1,447 @@
+/*
+    the usage of the measurement unit vw in high in this CSS due to my desire to make the designs available on mobile devices
+    in my conversion: 1px -> 0.1vw
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+
+:root {
+    --black: 22, 22, 22;
+    --white: 229, 229, 229;
+
+    & #navitem-sun {
+        fill: #525252;
+    }
+
+    & #navitem-moon {
+        fill: rgb(var(--white));
+    }
+} /* dark mode (default) */
+
+:root[data-mode="false"] {
+    --black: 229, 229, 229;
+    --white: 22, 22, 22;
+
+    & #navitem-moon {
+        fill: #525252;
+    }
+
+    & #navitem-sun {
+        fill: rgb(var(--white));
+    }
+} /* light mode */
+
+* {
+    font-family: "Source Code Pro", monospace;
+    user-select: none;
+    padding    : 0;
+    margin     : 0;
+    color      : rgb(var(--white));
+    transition : background-color 0.3s, border 0.3s, color 0.3s, fill 0.1s;
+}
+
+html,
+body {
+    height          : 100%;
+    width           : 100%;
+    background-color: rgb(var(--black));
+    scroll-behavior : smooth;
+    overflow        : auto;
+}
+
+.page {
+    height          : auto;
+    width           : 100%;
+    background-color: rgb(var(--black));
+    border-top   : 0.15vw solid rgba(var(--white), 0.4);
+}
+
+.page:first-of-type {
+    border: none;
+}
+
+#navbar {
+    position        : sticky;
+    background-color: rgba(var(--white), 0.05);
+    z-index         : 100;
+    height          : 6vw;
+    width           : 65vw;
+    top             : 3vh;
+    margin-left     : 17.5vw; /* (100 - 65 (width)) / 2 */
+    margin-bottom   : 3.5vh;
+    backdrop-filter : blur(1.5vw);
+    box-shadow      : 0.1vw 0.1vw 1vw 0.1vw rgba(var(--white), 0.6);
+    border-radius   : 2vw;
+    display         : flex;
+    align-items     : center;
+    box-sizing      : border-box;
+    border          : 0.1vw solid rgb(var(--white));
+    overflow        : hidden;
+    justify-content : space-between;
+}
+
+#navbar > div:first-of-type {
+    display: inherit;
+    height : inherit;
+} /* the left hand side of the bar */
+
+.navitem {
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+    height         : inherit;
+    width          : 6vw; /* = height of nav bar -> square */
+    box-sizing     : border-box;
+    border-left    : 0.175vw solid rgb(var(--black));
+    padding        : 0.2vw;
+}
+
+.navitem > svg {
+    fill  : rgb(var(--white));
+    width : 4.5vw;
+    height: 4.5vw;
+}
+
+.navitem > p {
+    margin-left : 1vw;
+    margin-right: 1vw;
+    font-size   : 1.5vw;
+    display     : none;
+}
+
+#navbar > div:first-of-type a {
+    border-left : none;
+    border-right: 0.175vw solid rgb(var(--black));
+} /* navitems on the left hand side */
+
+.navitem:hover {
+    width: auto;
+
+    & > svg {
+        margin-left: 1vw;
+    }
+
+    & > p {
+        display: flex;
+    }
+}
+
+/* the first page */
+@keyframes TitleTextColors {
+    from { background-color: rgba(0, 0, 255, 0.5);   }
+    to   { background-color: rgba(128, 0, 128, 0.5); }
+}
+
+@keyframes Typing {
+    from { border-right: 0.2vw solid rgb(var(--white)); }
+    to   { border-right: none;                          }
+}
+
+.page.first {
+    height         : calc(100% - 6vw - 3.5vh); /* the height of #navbar = 6vw, 3.5vh = #navbar's margin-bottom */
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+    flex-direction : column;
+}
+
+#title {
+    font-size      : 12.5vw;
+    animation      : TitleTextColors 1s infinite alternate;
+    background-clip: text;
+    color          : transparent !important;
+}
+
+#hello-text {
+    display    : flex;
+    align-items: center;
+    height     : 4.5vw;
+    font-size  : 3vw;
+    animation  : Typing 1s infinite steps(2);
+}
+
+/* not the first page */
+.page:not(.page.first) {
+    display: flex;
+}
+
+.page:not(.page.first) > div:first-of-type {
+    position     : relative;
+    margin-top   : 10vh;
+    margin-bottom: 10vh;
+    margin-left  : 10vw;
+    height       : 80%;
+    width        : 80%; /* 100 - 10 (left) - 10 (right) */
+}
+
+.page:not(.page.first) > div:first-of-type > h1:first-of-type {
+    position : absolute;
+    font-size: 4vw;
+
+    &::after {
+        content         : attr(data-after);
+        position        : absolute;
+        top             : 0;
+        left            : 0;
+        transform-origin: left;
+        transform       : rotate(90deg);
+        opacity         : 0.3;
+    }
+}
+
+.page.second > div:first-of-type > p:first-of-type,
+.page.third > div:first-of-type > div:first-of-type,
+.page.fourth > div:first-of-type > div:first-of-type,
+.page.fifth > div:first-of-type > form:first-of-type {
+    /* margin-top is approximately the height of h1 */
+    /* margin-left is half of margin-top as half of the vertical h1's height is out of the div */
+    
+    margin-top : 7vw;
+    margin-left: 3.5vw;
+    font-size  : 2.25vw;
+}
+
+/* the third page */
+.page.third > div:first-of-type > div:first-of-type {
+    --yellow: hsl(60, 50%, 50%);
+    --green : hsl(120, 50%, 25%);
+    --red   : hsl(0, 50%, 50%);
+}
+
+#track {
+    --thumb-left : 0vw;
+    width        : 73vw; /* (grandparent div + parent div = 10vw + 3.5vw) -> (100vw - 13.5vw * 2) */
+    position     : relative;
+    height       : 3.5vw;
+    border-radius: 10vw;
+    border       : 0.1vw solid rgba(var(--white));
+    background   : linear-gradient(to right, var(--yellow), var(--green), var(--red));
+    overflow     : hidden;
+}
+
+#track::after {
+    content         : '';
+    display         : block;
+    position        : absolute;
+    height          : 3.5vw;
+    width           : 5vw;
+    border-radius   : 10vw;
+    border          : 0.1vw dotted rgb(var(--black));
+    box-sizing      : border-box;
+    top             : 0;
+    left            : var(--thumb-left);
+    background-color: cyan;
+}
+
+#rank {
+    color: var(--yellow); /* initial color */
+}
+
+.page.third span {
+    border-bottom: 0.15vw solid rgb(var(--white));
+}
+
+.page.third span.selected {
+    border-bottom: 0.15vw solid cornflowerblue;
+}
+
+#skills-items {
+    display     : flex;
+    margin-top  : 2.25vw;
+    margin-bottom: 2.25vw;
+    width       : 73vw; /* #track's width */
+    aspect-ratio: 16 / 4.5;
+    overflow-x  : scroll;
+    overflow-y  : hidden; /* it's impossible for the container to overflow vertically tho... */
+}
+
+#skills-items > div.svgContainer {
+    display     : flex;
+    margin-right: 5vw;
+    transition  : all 0.3s ease-out;
+    filter      : grayscale(100%);
+    transform   : scale(0.7);
+
+    &:hover {
+        filter   : none;
+        transform: scale(0.85);
+    }
+
+    &:last-child {
+        margin-right: 0;
+    }
+}
+
+#skills-items > div.svgContainer.chosen {
+    filter   : none;
+    transform: scale(1);
+
+    &:hover {
+        transform: rotate(15deg) scale(0.8);
+    }
+}
+
+#language-name {
+    margin-top   : 3vw;
+    margin-bottom: 1.5vw;
+}
+
+/* the fourth page */
+.page.fourth > div:first-of-type > div:first-of-type {
+    display              : grid;
+    grid-template-columns: repeat(2, calc(50% - 1vw / 2));
+    gap                  : 1vw;
+}
+
+.card {
+    display        : flex;
+    flex-direction : column;
+    justify-content: space-between;
+    border         : 0.1vw solid rgb(var(--white));
+    height         : 15vw;
+    width          : 100%;
+    border-radius  : 1.5vw;
+    box-sizing     : border-box;
+    padding        : 1.35vw;
+}
+
+.card:hover {
+    background-color: rgba(var(--white), 0.8);
+}
+
+.card:hover * {
+    color: rgb(var(--black));
+}
+
+.card > div:first-of-type {
+    display        : flex;
+    justify-content: space-between;
+    font-size      : 2.5vw;
+
+    & * {
+        width          : auto;
+        scrollbar-width: none;
+    }
+
+    & > a:first-of-type {
+        white-space: nowrap;
+        font-weight: bold;
+        overflow-x : scroll;
+    }
+
+    & > p:first-of-type {
+        white-space: pre;
+    }
+}
+
+.card > p:first-of-type {
+    font-size: 2vw;
+    overflow : auto;
+}
+
+/* the fifth page */
+.page.fifth > div:first-of-type > form:first-of-type {
+    display        : flex;
+    flex-direction : column;
+    justify-content: center;
+    border         : 0.1vw solid rgb(var(--white));
+    border-radius  : 3vw;
+    padding        : 3vw;
+
+    & > div {
+        margin-bottom: 1vw;
+    }
+
+    & label,
+    & input,
+    & textarea {
+        display  : block;
+        font-size: 2vw;
+        border   : none;
+        outline  : none;
+    }
+
+    & input[type="text"],
+    & input[type="email"],
+    & input[type="tel"],
+    & textarea {
+        box-sizing      : border-box;
+        padding-left    : 1vw;
+        padding-right   : 1vw;
+        background-color: rgba(var(--white), 0.2);
+        color           : rgb(var(--white));
+        border-radius   : 1vw;
+
+        &:valid {
+            border: 0.105vw solid green;
+        }
+
+        &:invalid {
+            border: 0.105vw solid red;
+        }
+    }
+
+    /* email & tel textboxes */
+    & input[type="email"],
+    & input[type="tel"] {
+        width: 100%;
+    }
+
+    /* first/ last name */
+    & > div:first-of-type {
+        display: flex;
+
+        & > .form-name {
+            width: 50%;
+
+            & input[type="text"] {
+                width: 90%;
+            }
+        }
+
+        & > .form-name:nth-child(2) {
+            direction: rtl;
+
+            & > input[type="text"] {
+                direction: ltr;
+            }
+        }
+    }
+
+    /* message */
+    & textarea {
+        height: 15vw;
+        width : 100%;
+        resize: none;
+    }
+
+    & input[type="submit"] {
+        display        : flex;
+        align-items    : center;
+        justify-content: center;
+        margin-top     : 2vw;
+        height         : 4vw;
+        font-size      : 2.5vw;
+        background     : rgba(var(--white), 0.2);
+        border-radius  : 1.5vw;
+        transition     : font-size 0.2s;
+
+        &:hover {
+            font-size: 2.25vw;
+        }
+    }
+}
+
+/* footer */
+footer {
+    display         : flex;
+    align-items     : center;
+    justify-content : center;
+    height          : 5vw;
+    background-color: rgba(var(--white), 0.05);
+}
+
+footer > p {
+    font-size  : 1.5vw;
+    white-space: pre;
+}
