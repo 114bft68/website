@@ -294,6 +294,8 @@ if (!isMobile) {
     }, { passive: false });
 
 }
+
+document.getElementById('skills-items-better').addEventListener('change', () => SKILLS_ITEMS.classList.toggle('better'));
 /* end of the 3rd page */
 
 /* the 4th page */
@@ -364,19 +366,27 @@ fetch(`https://api.github.com/users/${REPO_REGEX.test(CURRENT_LINK) ? REPO_AUTHO
 /* the 5th page */
 document.getElementById('form-submit').addEventListener('click', (e) => {
 
+    let valid = true;
+
     for (item of ['form-first-name', 'form-last-name', 'form-email', 'form-message']) {
 
         if (!document.getElementById(item).checkValidity()) {
 
-            alert('Oops, I forgot to tell you the form was fake :)');
-            
-            e.preventDefault();
+            valid = false;
 
             break;
 
         }
 
     }
+
+    if (valid) {
+
+        alert('Oops, I forgot to tell you the form was fake :)');
+
+    }
+
+    e.preventDefault();
 
 });
 /* end of the 5th page */
