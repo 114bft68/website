@@ -1,5 +1,5 @@
 /*
-    the usage of the measurement unit vw in high in this CSS due to my desire to make the designs available on mobile devices
+    the usage of the measurement unit vw is high in this CSS due to my desire to make the designs available on mobile devices
     in my conversion: 1px -> 0.1vw
 */
 
@@ -47,6 +47,7 @@ body {
     background-color: rgb(var(--black));
     scroll-behavior : smooth;
     overflow        : auto;
+    interpolate-size: allow-keywords;
 }
 
 .page {
@@ -87,26 +88,29 @@ body {
 
 .navitem {
     display        : flex;
-    align-items    : center;
-    justify-content: center;
     height         : inherit;
     width          : 6vw; /* = height of nav bar -> square */
     box-sizing     : border-box;
     border-left    : 0.175vw solid rgb(var(--black));
-    padding        : 0.2vw;
+    overflow       : hidden;
+    transition     : width 0.25s;
 }
 
 .navitem > svg {
-    fill  : rgb(var(--white));
-    width : 4.5vw;
-    height: 4.5vw;
+    fill       : rgb(var(--white));
+    width      : 4.5vw;
+    height     : 4.5vw;
+    margin     : calc(1.5vw / 2); /* container: 6vw square; svg: 4.5vw square; */
+    flex-shrink: 0;
 }
 
 .navitem > p {
-    margin-left : 1vw;
-    margin-right: 1vw;
+    display     : flex;
+    align-items : center;
+    margin-left : 0.5vw;
+    margin-right: 0.5vw;
     font-size   : 1.5vw;
-    display     : none;
+    white-space : nowrap;
 }
 
 #navbar > div:first-of-type a {
@@ -116,17 +120,14 @@ body {
 
 .navitem:hover {
     width: auto;
-
-    & > svg {
-        margin-left: 1vw;
-    }
-
-    & > p {
-        display: flex;
-    }
 }
 
 /* the first page */
+@keyframes InvisibleToVisible {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
 @keyframes TitleTextColors {
     from { background-color: rgba(0, 0, 255, 0.5);   }
     to   { background-color: rgba(128, 0, 128, 0.5); }
@@ -147,7 +148,8 @@ body {
 
 #title {
     font-size      : 12.5vw;
-    animation      : TitleTextColors 1s infinite alternate;
+    opacity        : 0;
+    animation      : InvisibleToVisible 0.75s 0.5s 1 forwards, TitleTextColors 1s infinite alternate;
     background-clip: text;
     color          : transparent !important;
 }
@@ -208,9 +210,18 @@ body {
         --green : hsl(120, 50%, 25%);
         --red   : hsl(0, 50%, 50%);
 
-        & > div:nth-of-type(2) { /* #skills-items-better's parent div */
-            margin-top: 1.5vw;
-            font-size : 1.5vw;
+        & > div:nth-of-type(2) { /* #skills-items-better (checkbox)'s parent div */
+            display    : flex;
+            align-items: center;
+            margin-top : 1.5vw;
+            font-size  : 1.5vw;
+
+            & > #skills-items-better {
+                height     : 1.5vw;
+                width      : 1.5vw;
+                margin-left: 1vw;
+                transform  : scale(0.75);
+            }
         }
     }
 }
@@ -332,6 +343,7 @@ body {
 
 .card > div:first-of-type {
     display        : flex;
+    align-items    : center;
     justify-content: space-between;
     font-size      : 2.5vw;
 
@@ -347,6 +359,7 @@ body {
     }
 
     & > p:first-of-type {
+        font-size  : 1.75vw;
         white-space: pre;
     }
 }

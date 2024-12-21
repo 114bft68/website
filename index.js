@@ -49,7 +49,7 @@ fetch('hello.json')
     
     .catch((error) => {
         
-        alert(`An error has occured: ${error}`);
+        HELLOS.textContent = "An error has occurred (check console for more info)";
         console.log(error);
     
     });
@@ -348,7 +348,7 @@ fetch(`https://api.github.com/users/${REPO_REGEX.test(CURRENT_LINK) ? REPO_AUTHO
     
     .catch((error) => {
 
-        alert(`An error has occured: ${error}`);
+        alert(`An error has occured: ${error}, affected page: Creations.\nConsider reloading.`);
         console.log(error);
 
         for (let i = 0; i < 10; i++) {
