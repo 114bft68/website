@@ -1,1 +1,2 @@
-https://114bft68.github.io/new-website/
+link: https://114bft68.github.io/new-website/\
+TODO: add more animations...
